@@ -51,6 +51,20 @@ A package.json script is already set up to serve as a proxy for https://localhos
 }
 ```
 
+### 2. Set up storyblock
+
+Create a new space, then;
+
+- rename .env.example -> .env
+- replace the keys, space id and region
+- replace the accesstoken in root.tsx
+
+Storyblok components live in the _./app/components/storyblok_ folder.
+
+**that's it**... Go make your app/page/site/thing.
+
+---
+
 ## Development
 
 Start the Remix development asset server and the Express server by running:
