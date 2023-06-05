@@ -6,6 +6,10 @@ const compression = require("compression");
 const express = require("express");
 const morgan = require("morgan");
 
+// Cache
+const CacheGenerator = require("./app/lib/cache");
+let cache = new CacheGenerator();
+
 installGlobals();
 
 const BUILD_DIR = path.join(process.cwd(), "build");
@@ -38,11 +42,19 @@ app.all(
         return createRequestHandler({
           build: require(BUILD_DIR),
           mode: process.env.NODE_ENV,
+          // Add cache to context
+          getLoadContext() {
+            return { cache };
+          },
         })(req, res, next);
       }
     : createRequestHandler({
         build: require(BUILD_DIR),
         mode: process.env.NODE_ENV,
+        // Add cache to context
+        getLoadContext() {
+          return { cache };
+        },
       })
 );
 const port = process.env.PORT || 3000;

@@ -1,4 +1,4 @@
-import { LoaderFunction, V2_MetaFunction, json } from "@remix-run/node";
+import { LoaderArgs, V2_MetaFunction, json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import { StoryblokComponent, useStoryblokState } from "@storyblok/react";
 import { fetchStoryblokPage, genStoryBlokSlug } from "~/lib/storyblok";
@@ -10,9 +10,11 @@ export const meta: V2_MetaFunction = ({ data }) => {
   ];
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader = async ({ request, context }: LoaderArgs) => {
   const url = new URL(request.url);
   let slug = genStoryBlokSlug(url.pathname);
+
+  // const story = await fetchStoryblokPage({ slug, cache: context.cache });
   const story = await fetchStoryblokPage({ slug });
 
   return json(story);
