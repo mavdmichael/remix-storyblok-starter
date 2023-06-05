@@ -15,6 +15,7 @@ First, install [homebrew](https://docs.brew.sh/Installation), then create a self
 
 ```
 brew install mkcert
+brew install nss
 mkcert -install
 ```
 
