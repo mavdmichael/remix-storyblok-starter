@@ -1,41 +1,27 @@
-import type { V2_MetaFunction } from "@remix-run/node";
+import { LoaderFunction, V2_MetaFunction, json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
+import { StoryblokComponent, useStoryblokState } from "@storyblok/react";
+import { fetchStoryblokPage, genStoryBlokSlug } from "~/lib/storyblok";
 
-export const meta: V2_MetaFunction = () => {
+export const meta: V2_MetaFunction = ({ data }) => {
   return [
-    { title: "New Remix App" },
+    { title: `${data.name} | The starter` },
     { name: "description", content: "Welcome to Remix!" },
   ];
 };
 
+export const loader: LoaderFunction = async ({ request }) => {
+  const url = new URL(request.url);
+  let slug = genStoryBlokSlug(url.pathname);
+  const story = await fetchStoryblokPage({ slug });
+
+  return json(story);
+};
+
 export default function Index() {
-  return (
-    <div className="font-sans p-8 flex flex-col space-y-4">
-      <h1 className="font-serif text-4xl">Welcome to Remix</h1>
-      <ul className="flex flex-col space-y-2">
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
-    </div>
-  );
+  let story = useLoaderData<typeof loader>();
+
+  story = useStoryblokState(story);
+
+  return <StoryblokComponent blok={story.content} />;
 }

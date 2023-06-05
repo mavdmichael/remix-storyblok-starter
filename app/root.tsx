@@ -10,7 +10,18 @@ import {
   useLoaderData,
 } from "@remix-run/react";
 
+import { apiPlugin, storyblokInit } from "@storyblok/react";
+import components from "./components/storyblok";
 import tailwindStyles from "./styles/tailwind.css";
+
+storyblokInit({
+  accessToken: "3fwGlDgJOnUEw3JBRVVJZgtt",
+  use: [apiPlugin],
+  components,
+  apiOptions: {
+    region: "",
+  },
+});
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref
@@ -23,6 +34,7 @@ export const loader: LoaderFunction = ({ request }) => {
     isSSL: request.headers.get("x-forwarded-proto") === "https",
   };
 };
+
 export default function App() {
   const { isSSL } = useLoaderData<typeof loader>();
   return (

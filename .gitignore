@@ -8,3 +8,4 @@ node_modules
 
 localhost.pem
 localhost-key.pem
+components.*.json
