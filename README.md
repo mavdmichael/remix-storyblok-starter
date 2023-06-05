@@ -1,6 +1,51 @@
-# Welcome to Remix!
+# Welcome to this Remix Storyblok starter!
 
 - [Remix Docs](https://remix.run/docs)
+- [Storyblok Docs](https://www.storyblok.com/docs)
+
+## Initial setup
+
+### 1. Localhost https
+
+First, install [homebrew](https://docs.brew.sh/Installation), then create a self signed cert.
+
+```
+brew install mkcert
+mkcert -install
+```
+
+In the root-folder of this project, run
+
+```
+mkcert localhost
+```
+
+Then install [local-ssl-proxy]() globally to act as a proxy.
+
+```
+npm install -g local-ssl-proxy
+```
+
+A package.json script is already set up to serve as a proxy for https://localhost:3010 -> http://localhost:3000, this can be configured in ./ssl.config.json
+
+```
+{
+  "LocalHttps": {
+    "hostname": "localhost",
+    "source": 3010,
+    "target": 3000,
+    "cert": "localhost.pem",
+    "key": "localhost-key.pem"
+  },
+  "LocalLiveReload": {
+    "hostname": "localhost",
+    "source": 8012,
+    "target": 8002,
+    "cert": "localhost.pem",
+    "key": "localhost-key.pem"
+  }
+}
+```
 
 ## Development
 

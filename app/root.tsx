@@ -1,5 +1,5 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction } from "@remix-run/node";
+import type { LinksFunction, LoaderFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -7,13 +7,20 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLoaderData,
 } from "@remix-run/react";
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
 
+export const loader: LoaderFunction = ({ request }) => {
+  return {
+    isSSL: request.headers.get("x-forwarded-proto") === "https",
+  };
+};
 export default function App() {
+  const { isSSL } = useLoaderData<typeof loader>();
   return (
     <html lang="en">
       <head>
@@ -26,7 +33,7 @@ export default function App() {
         <Outlet />
         <ScrollRestoration />
         <Scripts />
-        <LiveReload />
+        <LiveReload port={isSSL ? 8012 : 8002} />
       </body>
     </html>
   );

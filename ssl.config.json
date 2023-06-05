@@ -1,0 +1,16 @@
+{
+  "LocalHttps": {
+    "hostname": "localhost",
+    "source": 3010,
+    "target": 3000,
+    "cert": "localhost.pem",
+    "key": "localhost-key.pem"
+  },
+  "LocalLiveReload": {
+    "hostname": "localhost",
+    "source": 8012,
+    "target": 8002,
+    "cert": "localhost.pem",
+    "key": "localhost-key.pem"
+  }
+}

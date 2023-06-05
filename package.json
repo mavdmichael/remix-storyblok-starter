@@ -6,6 +6,7 @@
     "dev": "npm-run-all build --parallel \"dev:*\"",
     "dev:node": "cross-env NODE_ENV=development nodemon --require dotenv/config ./server.js --watch ./server.js",
     "dev:remix": "remix watch",
+    "dev:ssl": "local-ssl-proxy  --config ssl.config.json",
     "start": "cross-env NODE_ENV=production node ./server.js",
     "typecheck": "tsc"
   },
