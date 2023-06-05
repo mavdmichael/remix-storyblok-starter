@@ -3,6 +3,10 @@
 - [Remix Docs](https://remix.run/docs)
 - [Storyblok Docs](https://www.storyblok.com/docs)
 
+## Installed packages
+
+- Tailwind - basic conf, stylesheet located .app/styles/tailwind.css
+
 ## Initial setup
 
 ### 1. Localhost https
